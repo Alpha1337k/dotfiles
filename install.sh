@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # make sure we have pulled in and updated any submodules
 git submodule init
@@ -8,6 +9,12 @@ git submodule update
 useronly=(
     git
 	zsh
+)
+
+brew_installs=(
+	stow
+	powerlevel10k
+	fzf
 )
 
 # run the stow command for the passed in directory ($2) in location $1
@@ -20,12 +27,23 @@ stowit() {
     stow -v -R -t ${usr} ${app}
 }
 
-echo ""
-echo "Stowing apps for user: ${whoami}"
+if ! command -v brew 2>&1 > /dev/null
+then
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
 
-# install only user space folders
+echo ""
+echo "Installing apps"
+
+brew install $brew_installs
+
+echo "### DONE"
+
+echo ""
+echo "Stowing apps for user: $(whoami)"
+
 for app in ${useronly[@]}; do
-    if [[! "$(whoami)" = *"root"*]]; then
+    if [[ "$(whoami)" != *"root"* ]]; then
         stowit "${HOME}" $app 
     fi
 done
