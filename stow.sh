@@ -5,16 +5,13 @@ set -euo pipefail
 git submodule init
 git submodule update
 
+# Assure brew is loaded
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+
 # folders that should, or only need to be installed for a local user
-useronly=(
+apps=(
     git
 	zsh
-)
-
-brew_installs=(
-	stow
-	powerlevel10k
-	fzf
 )
 
 # run the stow command for the passed in directory ($2) in location $1
@@ -27,26 +24,13 @@ stowit() {
     stow -v -R -t ${usr} ${app}
 }
 
-if ! command -v brew 2>&1 > /dev/null
-then
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
-
-echo ""
-echo "Installing apps"
-
-brew install $brew_installs
-
-echo "### DONE"
-
 echo ""
 echo "Stowing apps for user: $(whoami)"
 
-for app in ${useronly[@]}; do
-    if [[ "$(whoami)" != *"root"* ]]; then
-        stowit "${HOME}" $app 
-    fi
+for app in ${apps[@]}; do
+    stowit "${HOME}" $app 
 done
 
-echo ""
-echo "##### ALL DONE"
+echo "### DONE"
+
+source ~/.zshrc

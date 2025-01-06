@@ -2,6 +2,6 @@
 
 set -euo pipefail
 
-docker build -t dotfiles . 2> /dev/null
+docker build -t dotfiles .
 
-docker run --rm -it -v $PWD:/app dotfiles
+docker run --rm -it -v $PWD:/root dotfiles
