@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CDIR=$(pwd)
+
+. /etc/os-release
+
+if [[ "$CDIR" == "/mnt/"* ]] && [[ "$CDIR" != "/mnt/wsl"* ]]
+then
+	PARTS=(${CDIR//\// })
+	PARTS[1]=$(echo "${PARTS[1]}:" | tr '[:lower:]' '[:upper:]')
+	unset PARTS[0]
+
+	JOINED=$(IFS=\\ ; echo "${PARTS[*]}")
+
+	echo $JOINED
+else
+	echo "\\\\wsl.localhost\\$NAME-$VERSION_ID${CDIR//\//\\}"
+fi

@@ -112,7 +112,11 @@ fi
 
 HYPHEN_INSENSITIVE=true
 
-export PATH=$PATH:/usr/local/go/bin:/home/alpha/.local/bin
+export PATH=$PATH:/usr/local/go/bin:/home/alpha/.local/bin:/home/alpha/bin
+
+if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+	export BROWSER="/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+fi
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
