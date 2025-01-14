@@ -121,3 +121,5 @@ fi
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 alias open="explorer.exe"
+
+source ~/plugins/fzf-tab/fzf-tab.plugin.zsh
