@@ -1,3 +1,5 @@
 [user]
 	email = oscar@kruithof.io
 	name = Alpha1337k
+[help]
+	autocorrect = prompt
