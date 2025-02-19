@@ -125,3 +125,6 @@ alias open="explorer.exe"
 source ~/plugins/fzf-tab/fzf-tab.plugin.zsh
 
 eval "$(oh-my-posh init zsh --config ~/plugins/oh-my-posh/theme.omp.json)"
+
+alias pip="uv pip"
+alias pip3="uv pip"

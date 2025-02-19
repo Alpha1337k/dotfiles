@@ -7,6 +7,7 @@ brew_installs=(
 	zsh-autosuggestions
 	zsh-syntax-highlighting
 	fzf
+	uv
 )
 
 if ! command -v brew 2>&1 > /dev/null
