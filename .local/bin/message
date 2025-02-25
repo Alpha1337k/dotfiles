@@ -9,21 +9,32 @@ MESSAGE=${@:-$(cat -)}
 
 if [ -z ${TELEGRAM_BOT_API_KEY+x} ] 
 then
-	echo "message: error: no TELEGRAM_BOT_API_KEY provided"
+	>&2 echo "message: error: no TELEGRAM_BOT_API_KEY provided"
 	exit 1
 fi
 
 if [ -z ${TELEGRAM_CHAT_ID+x} ] 
 then
-	echo "message: error: no TELEGRAM_CHAT_ID provided"
+	>&2 echo "message: error: no TELEGRAM_CHAT_ID provided"
 	exit 1
 fi
 
 if [ ${#MESSAGE} -ge $MAX_MESSAGE_LEN ]
 then
-	>&2 echo "message: warn: message will be cut to 1024 characters"
+	>&2 echo "message: warn: message will be reduced to 1024 characters"
 
-	MESSAGE="${MESSAGE:0:1022}.."
+	MESSAGE="${MESSAGE:0:512}
+
+... $((${#MESSAGE}-1024)) characters omitted ...
+
+${MESSAGE:${#MESSAGE}-512:512}"
+fi
+
+if [ ${#MESSAGE} -eq 0 ]
+then
+	>&2 echo "message: error: no message provided"
+
+	exit 1
 fi
 
 # curl -X POST https://api.telegram.org/bot$TELEGRAM_BOT_API_KEY/getUpdates
@@ -32,7 +43,9 @@ fi
 
 set +e
 
-MESSAGE_UPLOAD=$(curl -s --show-error --fail --output /dev/null -X POST https://api.telegram.org/bot$TELEGRAM_BOT_API_KEY/sendMessage -d chat_id=$TELEGRAM_CHAT_ID -d text="$MESSAGE" 2>&1)
+echo $TELEGRAM_BOT_API_KEY chat_id=$TELEGRAM_CHAT_ID
+
+MESSAGE_UPLOAD=$(curl -s --show-error --fail -X POST https://api.telegram.org/bot$TELEGRAM_BOT_API_KEY/sendMessage -d chat_id=$TELEGRAM_CHAT_ID -d text="$MESSAGE" 2>&1)
 MESSAGE_UPLOAD_STATUS=$?
 
 set -e
