@@ -5,6 +5,18 @@ source ~/.env
 
 MAX_MESSAGE_LEN=1024
 
+show_help() {
+  echo "Usage: [command] | $(basename "$0")"
+  echo "   or: $(basename "$0") \"Your message\""
+  echo "Sends a message to Telegram."
+}
+
+# Show help if requested
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+  show_help
+  exit 0
+fi
+
 MESSAGE=${@:-$(cat -)}
 
 if [ -z ${TELEGRAM_BOT_API_KEY+x} ] 
@@ -42,8 +54,6 @@ fi
 ## UPLOAD
 
 set +e
-
-echo $TELEGRAM_BOT_API_KEY chat_id=$TELEGRAM_CHAT_ID
 
 MESSAGE_UPLOAD=$(curl -s --show-error --fail -X POST https://api.telegram.org/bot$TELEGRAM_BOT_API_KEY/sendMessage -d chat_id=$TELEGRAM_CHAT_ID -d text="$MESSAGE" 2>&1)
 MESSAGE_UPLOAD_STATUS=$?
