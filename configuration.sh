@@ -3,3 +3,4 @@
 set -euo pipefail
 
 git config --global help.autocorrect prompt
+

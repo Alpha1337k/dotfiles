@@ -128,3 +128,5 @@ eval "$(oh-my-posh init zsh --config ~/plugins/oh-my-posh/theme.omp.json)"
 
 alias pip="uv pip"
 alias pip3="uv pip"
+
+source ~/.env
