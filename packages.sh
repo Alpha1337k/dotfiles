@@ -8,6 +8,8 @@ brew_installs=(
 	zsh-syntax-highlighting
 	fzf
 	uv
+	tlrc
+	fd
 )
 
 if ! command -v brew 2>&1 > /dev/null
