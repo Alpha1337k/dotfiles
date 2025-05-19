@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/home/alpha/.zsh/completions:"* ]]; then export FPATH="/home/alpha/.zsh/completions:$FPATH"; fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -130,3 +132,4 @@ alias pip="uv pip"
 alias pip3="uv pip"
 
 source ~/.env
+. "/home/alpha/.deno/env"
