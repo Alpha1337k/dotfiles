@@ -114,7 +114,7 @@ eval $save_aliases; unset save_aliases
 # fnm
 FNM_PATH="/home/alpha/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
-  export PATH="/home/alpha/.local/share/fnm:$PATH"
+  export PATH="$PATH:/home/alpha/.local/share/fnm"
   eval "`fnm env`"
 fi
 

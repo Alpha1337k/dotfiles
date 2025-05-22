@@ -7,10 +7,13 @@ brew_installs=(
 	zsh-autosuggestions
 	zsh-syntax-highlighting
 	fzf
+	fnm
 	uv
 	tlrc
 	fd
+	zellij
 	zoxide
+	eza
 )
 
 uv_tool_installs=(
