@@ -1,0 +1,4 @@
+alias open="explorer.exe"
+alias pip="uv pip"
+alias pip3="uv pip"
+alias python="python3"

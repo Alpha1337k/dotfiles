@@ -43,7 +43,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -74,7 +74,13 @@ HIST_STAMPS="mm/dd/yyyy"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
+
+# I don't want to pollute my terminal with aliases. Delete oh-my-zsh's aliases
+save_aliases=$(alias -L)
+
 source $ZSH/oh-my-zsh.sh
+
+eval $save_aliases; unset save_aliases
 
 # User configuration
 
@@ -121,15 +127,13 @@ if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
 fi
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-alias open="explorer.exe"
+eval "$(zoxide init zsh --cmd cd)"
 
 source ~/plugins/fzf-tab/fzf-tab.plugin.zsh
+source ~/aliases.zsh
 
 eval "$(oh-my-posh init zsh --config ~/plugins/oh-my-posh/theme.omp.json)"
 
-alias pip="uv pip"
-alias pip3="uv pip"
 
 source ~/.env
 . "/home/alpha/.deno/env"
