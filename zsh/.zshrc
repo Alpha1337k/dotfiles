@@ -67,12 +67,17 @@ HIST_STAMPS="mm/dd/yyyy"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+zstyle ':omz:plugins:eza' 'dirs-first' yes
+zstyle ':omz:plugins:eza' 'git-status' no
+zstyle ':omz:plugins:eza' 'header' no
+zstyle ':omz:plugins:eza' 'show-group' no
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git eza)
 
 
 # I don't want to pollute my terminal with aliases. Delete oh-my-zsh's aliases
