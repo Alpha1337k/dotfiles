@@ -10,6 +10,11 @@ brew_installs=(
 	uv
 	tlrc
 	fd
+	zoxide
+)
+
+uv_tool_installs=(
+	openrouter-cli
 )
 
 if ! command -v brew 2>&1 > /dev/null
@@ -23,5 +28,12 @@ echo ""
 echo "Installing apps"
 
 brew install ${brew_installs[*]// /|}
+
+echo "### DONE"
+
+echo ""
+echo "Installing python tools"
+
+uv tool install ${uv_tool_installs[*]// /|}
 
 echo "### DONE"
