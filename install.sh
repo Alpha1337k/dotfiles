@@ -19,7 +19,6 @@ else
 		git clone "$REPO_URL" "$TARGET_DIR"
 	fi
 fi
-fi
 
 # Check for zsh
 if ! command -v zsh >/dev/null 2>&1; then
