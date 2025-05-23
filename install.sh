@@ -3,6 +3,7 @@
 set -e
 
 REPO_URL="git@github.com:Alpha1337k/dotfiles.git"
+HTTP_REPO_URL="https://github.com/Alpha1337k/dotfiles.git"
 TARGET_DIR="$HOME/dotfiles"
 
 # Clone or update the dotfiles repository
@@ -10,8 +11,14 @@ if [ -d "$TARGET_DIR/.git" ]; then
 	echo "Updating existing dotfiles repository..."
 	git -C "$TARGET_DIR" pull
 else
-	echo "Cloning dotfiles repository..."
-	git clone "$REPO_URL" "$TARGET_DIR"
+	if [ "$DOTFILES_USE_HTTP" = "1" ]; then
+		echo "Cloning dotfiles repository via HTTPS..."
+		git clone "$HTTP_REPO_URL" "$TARGET_DIR"
+	else
+		echo "Cloning dotfiles repository via SSH..."
+		git clone "$REPO_URL" "$TARGET_DIR"
+	fi
+fi
 fi
 
 # Check for zsh
