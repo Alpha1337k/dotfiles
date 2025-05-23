@@ -30,6 +30,11 @@ fi
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
 	echo "Installing oh-my-zsh..."
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+	mv ~/.zshrc ~/.zshrc.bak
+	echo "Zsh configuration file backed up to ~/.zshrc.bak"
+else
+	echo "oh-my-zsh is already installed."
 fi
 
 "$TARGET_DIR/packages.sh"

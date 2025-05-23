@@ -12,7 +12,6 @@ echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
 apps=(
     git
 	zsh
-	omz
 	.plugins
 	.local
 	env
