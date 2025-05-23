@@ -11,6 +11,7 @@ brew_installs=(
 	uv
 	tlrc
 	fd
+	gh
 	zellij
 	zoxide
 	eza
