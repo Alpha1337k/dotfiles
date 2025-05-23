@@ -135,6 +135,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(zoxide init zsh --cmd cd)"
 
 source ~/plugins/fzf-tab/fzf-tab.plugin.zsh
+source ~/plugins/q/q.plugin.zsh
 source ~/aliases.zsh
 
 eval "$(oh-my-posh init zsh --config ~/plugins/oh-my-posh/theme.omp.json)"
