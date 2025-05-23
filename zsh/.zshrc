@@ -77,7 +77,7 @@ zstyle ':omz:plugins:eza' 'show-group' no
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git eza)
+plugins=(git eza git-auto-fetch)
 
 
 # I don't want to pollute my terminal with aliases. Delete oh-my-zsh's aliases
