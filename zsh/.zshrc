@@ -138,6 +138,7 @@ eval "$(zoxide init zsh --cmd cd)"
 eval "$(oh-my-posh init zsh --config ~/plugins/oh-my-posh/theme.omp.json)"
 
 source ~/plugins/fzf-tab/fzf-tab.plugin.zsh
+source ~/.config/zshrc/fzf-tab.zsh
 source ~/plugins/q/q.plugin.zsh
 source ~/aliases.zsh
 
