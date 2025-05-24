@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+git submodule update --init --recursive
 
 # Assure brew is loaded
 echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
