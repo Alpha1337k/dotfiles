@@ -9,8 +9,8 @@ echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
 apps=(
     git
 	zsh
-	.plugins
-	.local
+	plugins
+	commands
 	env
 	config
 )

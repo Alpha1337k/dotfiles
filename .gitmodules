@@ -1,6 +1,3 @@
-[submodule "omz/.oh-my-zsh"]
-	path = omz/.oh-my-zsh
-	url = https://github.com/ohmyzsh/ohmyzsh.git
 [submodule ".plugins/plugins/fzf-tab"]
-	path = .plugins/plugins/fzf-tab
+	path = plugins/plugins/plugins/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab
