@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# make sure we have pulled in and updated any submodules
-git submodule init
-git submodule update
 
 # Assure brew is loaded
 echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
@@ -36,5 +33,3 @@ for app in ${apps[@]}; do
 done
 
 echo "### DONE"
-
-source ~/.zshrc
