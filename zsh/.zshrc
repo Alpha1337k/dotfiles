@@ -1,5 +1,3 @@
-# Add deno completions to search path
-if [[ ":$FPATH:" != *":/home/alpha/.zsh/completions:"* ]]; then export FPATH="/home/alpha/.zsh/completions:$FPATH"; fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -67,18 +65,30 @@ HIST_STAMPS="mm/dd/yyyy"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-zstyle ':omz:plugins:eza' 'dirs-first' yes
-zstyle ':omz:plugins:eza' 'git-status' no
-zstyle ':omz:plugins:eza' 'header' no
-zstyle ':omz:plugins:eza' 'show-group' no
-
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+
+# fnm
+FNM_PATH="/home/alpha/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$PATH:/home/alpha/.local/share/fnm"
+  eval "`fnm env`"
+fi
+
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/home/alpha/.zsh/completions:"* ]]; then export FPATH="/home/alpha/.zsh/completions:$FPATH"; fi
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 plugins=(git eza git-auto-fetch)
 
+
+zstyle ':omz:plugins:eza' 'dirs-first' yes
+zstyle ':omz:plugins:eza' 'git-status' no
+zstyle ':omz:plugins:eza' 'header' no
+zstyle ':omz:plugins:eza' 'show-group' no
 
 # I don't want to pollute my terminal with aliases. Delete oh-my-zsh's aliases
 save_aliases=$(alias -L)
@@ -116,13 +126,6 @@ eval $save_aliases; unset save_aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# fnm
-FNM_PATH="/home/alpha/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$PATH:/home/alpha/.local/share/fnm"
-  eval "`fnm env`"
-fi
-
 HYPHEN_INSENSITIVE=true
 
 export PATH=$PATH:/usr/local/go/bin:/home/alpha/.local/bin:/home/alpha/bin
@@ -131,15 +134,15 @@ if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
 	export BROWSER="/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
 fi
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(zoxide init zsh --cmd cd)"
+eval "$(oh-my-posh init zsh --config ~/plugins/oh-my-posh/theme.omp.json)"
 
 source ~/plugins/fzf-tab/fzf-tab.plugin.zsh
 source ~/plugins/q/q.plugin.zsh
 source ~/aliases.zsh
 
-eval "$(oh-my-posh init zsh --config ~/plugins/oh-my-posh/theme.omp.json)"
-
 
 source ~/.env
 . "/home/alpha/.deno/env"
+
+eval "$(atuin init zsh)"
