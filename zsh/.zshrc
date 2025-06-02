@@ -84,12 +84,6 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 plugins=(git eza git-auto-fetch)
 
-
-zstyle ':omz:plugins:eza' 'dirs-first' yes
-zstyle ':omz:plugins:eza' 'git-status' no
-zstyle ':omz:plugins:eza' 'header' no
-zstyle ':omz:plugins:eza' 'show-group' no
-
 # I don't want to pollute my terminal with aliases. Delete oh-my-zsh's aliases
 save_aliases=$(alias -L)
 
@@ -138,8 +132,9 @@ eval "$(zoxide init zsh --cmd cd)"
 eval "$(oh-my-posh init zsh --config ~/plugins/oh-my-posh/theme.omp.json)"
 
 source ~/plugins/fzf-tab/fzf-tab.plugin.zsh
-source ~/.config/zshrc/fzf-tab.zsh
 source ~/plugins/q/q.plugin.zsh
+source ~/.config/zshrc/fzf-tab.zsh
+source ~/.config/zshrc/eza.zsh
 source ~/aliases.zsh
 
 
