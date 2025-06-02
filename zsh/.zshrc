@@ -128,8 +128,21 @@ if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
 	export BROWSER="/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
 fi
 
-eval "$(zoxide init zsh --cmd cd)"
-eval "$(oh-my-posh init zsh --config ~/plugins/oh-my-posh/theme.omp.json)"
+_source_if_exists() {
+	if [ -f "$1" ]; then
+		source "$1"
+	fi
+}
+
+_eval_if_exists() {
+	if command -v "$1" >/dev/null 2>&1; then
+		eval "$("$1" ${@:2})"
+	fi
+}
+
+_eval_if_exists zoxide init zsh --cmd cd
+_eval_if_exists oh-my-posh init zsh --config ~/plugins/oh-my-posh/theme.omp.json
+
 
 source ~/plugins/fzf-tab/fzf-tab.plugin.zsh
 source ~/plugins/q/q.plugin.zsh
@@ -137,8 +150,8 @@ source ~/.config/zshrc/fzf-tab.zsh
 source ~/.config/zshrc/eza.zsh
 source ~/aliases.zsh
 
+_source_if_exists ~/.env
+_source_if_exists "/home/alpha/.deno/env"
 
-source ~/.env
-. "/home/alpha/.deno/env"
 
 eval "$(atuin init zsh)"
