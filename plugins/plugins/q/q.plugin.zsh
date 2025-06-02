@@ -1,10 +1,15 @@
+# First, create a real 'q' function as a fallback
+q() {
+    echo "Error: 'q' should be used with the AI command replacement system."
+    echo "Usage: q \"your request\" or command | q \"your request\""
+    return 1
+}
 
+# Enhanced ZLE widget that handles more complex cases
 ai_replace_command() {
-    # Match either "| q" or standalone "q" at the beginning
-    if [[ $BUFFER =~ '(^|.* \|\s*)q "([^"]*)"' ]]; then
-        local base_cmd="${BUFFER%% | q *}"  # This will be empty for standalone q
-        local query="$match[2]"  # Note: now match[2] since we have more capture groups
-        local original_buffer="$BUFFER"
+    # More comprehensive regex to catch q anywhere in the command
+    if [[ $BUFFER =~ "(^|[[:space:]|&;])q[[:space:]]+(['\"])[^'\"]*\2" ]]; then
+		echo $query > ~/dotfiles/debug.log
 
         # Show processing feedback
         echo "\n🤖"
@@ -16,11 +21,10 @@ RULES:
 2. No explanations, no markdown, no backticks
 3. No 'Here is the command:' or similar phrases
 4. The command must be ready to execute as-is
-5. For piped commands, replace the entire '| q \"...\"' part with the appropriate command
+5. Replace the entire 'q \"...\"' part with the appropriate command
+6. Preserve any other parts of the command line (like variable assignments, pipes, etc.)
 
-INPUT FORMAT:
-- Standalone: 'q \"description\"' → output the complete command
-- Piped: 'command | q \"description\"' → output 'command | replacement'
+CONTEXT: The input may contain complex shell syntax like variable assignments, pipes, or command chaining. Your job is to replace just the 'q \"...\"' part while keeping everything else intact.
 
 EXAMPLES:
 Input: q \"list files sorted by date\"
@@ -29,13 +33,16 @@ Output: ls -lt
 Input: ls -la | q \"sort by size\"
 Output: ls -la | sort -k5 -n
 
-Input: q \"start nginx docker container\"
-Output: docker run -d -p 80:80 nginx
+Input: export A=\"hello\"; q \"echo the A variable\"
+Output: export A=\"hello\"; echo \$A
+
+Input: q \"start nginx docker container\" && echo \"done\"
+Output: docker run -d -p 80:80 nginx && echo \"done\"
 
 Now process this input:"
 
-        local ai_cmd=$(echo $BUFFER | openrouter-cli run mistralai/devstral-small --system=$system_prompt --no-thinking-stdout)
-                
+        local ai_cmd=$(echo $BUFFER | openrouter-cli run mistralai/devstral-small --system="$system_prompt" --no-thinking-stdout)
+        
         # Add original command to history for reference
         print -s "$original_buffer"
         
@@ -53,4 +60,4 @@ Now process this input:"
 
 # Create ZLE widget and bind to Enter
 zle -N ai_replace_command
-bindkey '^M' ai_replace_command  # Bind to Enter key
+bindkey '^M' ai_replace_command
