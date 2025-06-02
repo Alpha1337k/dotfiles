@@ -155,3 +155,6 @@ _source_if_exists "/home/alpha/.deno/env"
 
 
 eval "$(atuin init zsh)"
+
+# Tab completer. First, expand aliases, then complete commands, then ignore
+zstyle ':completion:*' completer _expand_alias _complete _ignored
