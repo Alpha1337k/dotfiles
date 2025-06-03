@@ -122,6 +122,8 @@ eval $save_aliases; unset save_aliases
 
 HYPHEN_INSENSITIVE=true
 
+
+# Add additional paths to the clean PATH
 export PATH=$PATH:/usr/local/go/bin:/home/$(whoami)/.local/bin:/home/$(whoami)/bin
 
 if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
@@ -147,6 +149,7 @@ _eval_if_exists oh-my-posh init zsh --config ~/plugins/oh-my-posh/theme.omp.json
 source ~/plugins/fzf-tab/fzf-tab.plugin.zsh
 source ~/plugins/q/q.plugin.zsh
 source ~/plugins/dotfiles-update-check/dotfiles-update-check.plugin.zsh
+source ~/plugins/windows-path-fallback/windows-path-fallback.plugin.zsh
 source ~/.config/zshrc/fzf-tab.zsh
 source ~/.config/zshrc/eza.zsh
 source ~/aliases.zsh
