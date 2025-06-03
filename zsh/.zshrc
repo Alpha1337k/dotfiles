@@ -153,8 +153,13 @@ source ~/aliases.zsh
 _source_if_exists ~/.env
 _source_if_exists "/home/alpha/.deno/env"
 
-
 eval "$(atuin init zsh)"
+
+ZSH_AUTOSUGGEST_STRATEGY=(atuin)
+
+_source_if_exists $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+bindkey '^[[Z' autosuggest-accept
 
 # Tab completer. First, expand aliases, then complete commands, then ignore
 zstyle ':completion:*' completer _expand_alias _complete _ignored
