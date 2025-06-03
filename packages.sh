@@ -3,7 +3,7 @@ set -euo pipefail
 
 brew_installs=(
 	stow
-	powerlevel10k
+	oh-my-posh
 	zsh-autosuggestions
 	zsh-syntax-highlighting
 	fzf
