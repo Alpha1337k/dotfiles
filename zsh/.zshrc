@@ -72,14 +72,14 @@ HIST_STAMPS="mm/dd/yyyy"
 # Add wisely, as too many plugins slow down shell startup.
 
 # fnm
-FNM_PATH="/home/alpha/.local/share/fnm"
+FNM_PATH="/home/$(whoami)/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
-  export PATH="$PATH:/home/alpha/.local/share/fnm"
+  export PATH="$PATH:/home/$(whoami)/.local/share/fnm"
   eval "`fnm env`"
 fi
 
 # Add deno completions to search path
-if [[ ":$FPATH:" != *":/home/alpha/.zsh/completions:"* ]]; then export FPATH="/home/alpha/.zsh/completions:$FPATH"; fi
+if [[ ":$FPATH:" != *":/home/$(whoami)/.zsh/completions:"* ]]; then export FPATH="/home/$(whoami)/.zsh/completions:$FPATH"; fi
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 plugins=(git eza git-auto-fetch)
@@ -152,7 +152,7 @@ source ~/.config/zshrc/eza.zsh
 source ~/aliases.zsh
 
 _source_if_exists ~/.env
-_source_if_exists "/home/alpha/.deno/env"
+_source_if_exists "/home/$(whoami)/.deno/env"
 
 eval "$(atuin init zsh)"
 
