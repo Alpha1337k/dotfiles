@@ -146,6 +146,7 @@ _eval_if_exists oh-my-posh init zsh --config ~/plugins/oh-my-posh/theme.omp.json
 
 source ~/plugins/fzf-tab/fzf-tab.plugin.zsh
 source ~/plugins/q/q.plugin.zsh
+source ~/plugins/dotfiles-update-check/dotfiles-update-check.zsh
 source ~/.config/zshrc/fzf-tab.zsh
 source ~/.config/zshrc/eza.zsh
 source ~/aliases.zsh

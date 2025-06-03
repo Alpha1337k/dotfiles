@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DOTFILES_DIR="$HOME/dotfiles"
+
+show_help() {
+    cat << EOF
+osh - Oh my shell dotfiles manager
+
+Usage: osh <command>
+
+Commands:
+    update        Update dotfiles (git pull, packages, stow)
+    check-updates Check if updates are available (silent)
+    help          Show this help message
+
+Examples:
+    osh update    # Pull latest changes and update system
+    osh help      # Show help
+EOF
+}
+
+update_dotfiles() {
+    echo "🔄 Updating dotfiles..."
+    
+    cd "$DOTFILES_DIR"
+    
+    echo "📥 Pulling latest changes..."
+    git pull
+    
+    echo "📦 Installing/updating packages..."
+    ./packages.sh
+    
+    echo "🔗 Applying stow configurations..."
+    ./stow.sh
+    
+    echo "✅ Dotfiles updated successfully!"
+}
+
+check_updates() {
+    cd "$DOTFILES_DIR"
+    
+    # Fetch latest changes without merging
+    git fetch origin main >/dev/null 2>&1
+    
+    # Check if local is behind remote
+    LOCAL=$(git rev-parse HEAD)
+    REMOTE=$(git rev-parse origin/main)
+    
+    if [ "$LOCAL" != "$REMOTE" ]; then
+        exit 0  # Updates available
+    else
+        exit 1  # No updates
+    fi
+}
+
+case "${1:-}" in
+    update)
+        update_dotfiles
+        ;;
+    check-updates)
+        check_updates
+        ;;
+    help|--help|-h)
+        show_help
+        ;;
+    "")
+        show_help
+        exit 1
+        ;;
+    *)
+        echo "Error: Unknown command '$1'"
+        echo ""
+        show_help
+        exit 1
+        ;;
+esac
