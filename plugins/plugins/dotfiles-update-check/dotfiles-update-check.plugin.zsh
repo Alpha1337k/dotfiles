@@ -1,43 +1,57 @@
 # Dotfiles update checker
-# Checks for updates on shell startup, with week-long cache
+# Non-blocking approach: check in background, cache results, prompt on next startup
 
 _osh_check_for_updates() {
     local cache_file="$HOME/.cache/osh-update-check"
+    local update_available_file="$HOME/.cache/osh-update-available"
     local cache_dir="$(dirname "$cache_file")"
     
     # Create cache directory if it doesn't exist
     [[ ! -d "$cache_dir" ]] && mkdir -p "$cache_dir"
     
-    # Check if we should skip (cache exists and is less than 7 days old)
-    if [[ -f "$cache_file" ]]; then
-        local cache_age=$(( $(date +%s) - $(stat -c %Y "$cache_file" 2>/dev/null || stat -f %m "$cache_file" 2>/dev/null || echo 0) ))
-        local week_in_seconds=604800  # 7 days * 24 hours * 60 minutes * 60 seconds
-        
-        if (( cache_age < week_in_seconds )); then
-            return 0  # Skip check, cache is fresh
-        fi
-    fi
-    
-    # Check for updates silently
-    if osh check-updates 2>/dev/null; then
+    # First, check if we have a pending update notification
+    if [[ -f "$update_available_file" ]]; then
         echo "🔄 Dotfiles updates are available!"
         echo -n "Would you like to update now? (y/N): "
         read -r response
         
-        case "$response" in
+        case "${response:-n}" in
             [yY]|[yY][eE][sS])
                 echo "Updating dotfiles..."
                 osh update
+                rm -f "$update_available_file"
+                touch "$cache_file"
+                return 0
                 ;;
             *)
                 echo "Skipping update. You can run 'osh update' later."
+                rm -f "$update_available_file"
+                touch "$cache_file"
+                return 0
                 ;;
         esac
     fi
     
-    # Update cache file regardless of whether updates were found
-    touch "$cache_file"
+    # Check if we should skip background check (cache exists and is less than 7 days old)
+    if [[ -f "$cache_file" ]]; then
+        local cache_age=$(( $(date +%s) - $(stat -c %Y "$cache_file" 2>/dev/null || stat -f %m "$cache_file" 2>/dev/null || echo 0) ))
+        local day_in_seconds=86400  # 1 day * 24 hours * 60 minutes * 60 seconds
+
+        if (( cache_age < day_in_seconds )); then
+            return 0  # Skip check, cache is fresh
+        fi
+    fi
+    
+    # Run background check for updates (non-blocking)
+    (
+        if osh check-updates 2>/dev/null; then
+            touch "$update_available_file"
+        else
+            rm -f "$update_available_file"
+        fi
+        touch "$cache_file"
+    ) &!
 }
 
-# Run the check in background to avoid blocking shell startup
-_osh_check_for_updates &!
+# Run the check
+_osh_check_for_updates
