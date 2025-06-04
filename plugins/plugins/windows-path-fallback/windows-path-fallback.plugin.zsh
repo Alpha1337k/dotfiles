@@ -6,7 +6,7 @@ setup_windows_path_fallback() {
     WINDOWS_PATH=""
     CLEAN_PATH=""
 
-    PATHS=($(echo $PATH | tr ":" " "))
+    IFS=':' read -rA PATHS <<< "$PATH"
 
     for path_entry in $PATHS; do
         if [[ "$path_entry" == /mnt/c/* ]]; then
