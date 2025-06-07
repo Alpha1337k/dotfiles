@@ -9,6 +9,7 @@ alias diff="delta"
 alias grep="rg"
 alias code="nocorrect code"
 alias top="htop"
+alias curl="curlie"
 
 # Docker aliases
 alias d="docker"

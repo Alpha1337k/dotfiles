@@ -18,6 +18,7 @@ brew_installs=(
 	bat
 	git-delta
 	ripgrep
+	curlie
 )
 
 uv_tool_installs=(
@@ -34,7 +35,7 @@ fi
 echo ""
 echo "Installing apps"
 
-brew install ${brew_installs[*]// /|}
+brew install -q ${brew_installs[*]// /|}
 
 echo "### DONE"
 
