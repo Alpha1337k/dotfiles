@@ -3,6 +3,8 @@ alias pip="uv pip"
 alias pip3="uv pip"
 alias python="python3"
 alias nvm="fnm"
+alias cat="bat"
+
 
 # Docker aliases
 alias d="docker"

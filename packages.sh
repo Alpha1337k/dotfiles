@@ -15,6 +15,7 @@ brew_installs=(
 	zellij
 	zoxide
 	eza
+	bat
 )
 
 uv_tool_installs=(
