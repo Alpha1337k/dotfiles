@@ -1,10 +1,13 @@
+alias -- -="cd -"
 alias open="explorer.exe"
 alias pip="uv pip"
 alias pip3="uv pip"
 alias python="python3"
 alias nvm="fnm"
 alias cat="bat"
-
+alias diff="delta"
+alias grep="rg"
+alias code="nocorrect code"
 
 # Docker aliases
 alias d="docker"

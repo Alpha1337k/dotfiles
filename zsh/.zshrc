@@ -21,7 +21,7 @@ ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
@@ -84,12 +84,10 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 plugins=(git eza git-auto-fetch)
 
-# I don't want to pollute my terminal with aliases. Delete oh-my-zsh's aliases
-save_aliases=$(alias -L)
+zstyle ':omz:plugins:*' aliases no
+zstyle ':omz:lib:directories' aliases no
 
 source $ZSH/oh-my-zsh.sh
-
-eval $save_aliases; unset save_aliases
 
 # User configuration
 
@@ -120,8 +118,6 @@ eval $save_aliases; unset save_aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-HYPHEN_INSENSITIVE=true
-
 
 # Add additional paths to the clean PATH
 export PATH=$PATH:/usr/local/go/bin:/home/$(whoami)/.local/bin:/home/$(whoami)/bin
@@ -129,6 +125,7 @@ export PATH=$PATH:/usr/local/go/bin:/home/$(whoami)/.local/bin:/home/$(whoami)/b
 if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
 	export BROWSER="/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
 fi
+
 
 _source_if_exists() {
 	if [ -f "$1" ]; then
@@ -152,7 +149,8 @@ source ~/plugins/dotfiles-update-check/dotfiles-update-check.plugin.zsh
 source ~/plugins/windows-path-fallback/windows-path-fallback.plugin.zsh
 source ~/.config/zshrc/fzf-tab.zsh
 source ~/.config/zshrc/eza.zsh
-source ~/aliases.zsh
+source ~/.zsh/extend/aliases.zsh
+source ~/.zsh/extend/functions.zsh
 
 _source_if_exists ~/.env
 _source_if_exists "/home/$(whoami)/.deno/env"
