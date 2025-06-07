@@ -16,6 +16,8 @@ brew_installs=(
 	zoxide
 	eza
 	bat
+	git-delta
+	ripgrep
 )
 
 uv_tool_installs=(
