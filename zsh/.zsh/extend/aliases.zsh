@@ -8,6 +8,7 @@ alias cat="bat"
 alias diff="delta"
 alias grep="rg"
 alias code="nocorrect code"
+alias top="htop"
 
 # Docker aliases
 alias d="docker"
