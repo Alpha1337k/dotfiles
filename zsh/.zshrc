@@ -89,41 +89,10 @@ zstyle ':omz:lib:directories' aliases no
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch $(uname -m)"
-
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-# - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-
-# Add additional paths to the clean PATH
 export PATH=$PATH:/usr/local/go/bin:/home/$(whoami)/.local/bin:/home/$(whoami)/bin
 
 if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
-	export BROWSER="/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+	export BROWSER="/mnt/c/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe"
 fi
 
 
@@ -160,6 +129,9 @@ eval "$(atuin init zsh)"
 ZSH_AUTOSUGGEST_STRATEGY=(atuin)
 
 _source_if_exists $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+_source_if_exists $(brew --prefix)/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+
+fast-theme -q ~/.config/zsh-fast-syntax-highlighting/custom.ini
 
 bindkey '^[[Z' autosuggest-accept
 
