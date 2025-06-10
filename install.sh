@@ -37,7 +37,13 @@ else
 	echo "oh-my-zsh is already installed."
 fi
 
-"$TARGET_DIR/packages.sh"
-"$TARGET_DIR/stow.sh"
+# Install brew if not present
+if ! command -v brew 2>&1 >/dev/null; then
+	echo "# Installing brew"
+	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+$TARGET_DIR/commands/osh update
 
 echo "Dotfiles installation complete."
