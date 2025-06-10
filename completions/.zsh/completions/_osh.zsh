@@ -12,6 +12,8 @@ _osh() {
 		local commands=(
 			'add:Add a package to dotfiles'
 			'update:Update dotfiles (git pull, packages, stow)'
+			'install:Install packages from Brew and uv'
+			'stow:Stow dotfiles configurations'
 			'check-updates:Check if updates are available (silent)'
 			'help:Show help message'
 		)
@@ -40,6 +42,12 @@ _osh() {
 			# No arguments for help or check-updates
 			;;
 		update)
+			# No arguments for update
+			;;
+		install)
+			# No arguments for update
+			;;
+		stow)
 			# No arguments for update
 			;;
 		esac

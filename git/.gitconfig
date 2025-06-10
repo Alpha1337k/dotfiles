@@ -45,4 +45,3 @@
 	navigate = true
 	hyperlinks = true
 [merge]
-	conflictStyle = zdiff3
