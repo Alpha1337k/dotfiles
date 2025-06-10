@@ -10,6 +10,7 @@ alias grep="rg"
 alias code="nocorrect code"
 alias top="htop"
 alias curl="curlie"
+alias test="nocorrect test"
 
 # Docker aliases
 alias d="docker"

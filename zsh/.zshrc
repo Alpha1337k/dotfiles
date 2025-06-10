@@ -74,8 +74,8 @@ HIST_STAMPS="mm/dd/yyyy"
 # fnm
 FNM_PATH="/home/$(whoami)/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
-  export PATH="$PATH:/home/$(whoami)/.local/share/fnm"
-  eval "`fnm env`"
+	export PATH="$PATH:/home/$(whoami)/.local/share/fnm"
+	eval "$(fnm env)"
 fi
 
 # Add deno completions to search path
@@ -95,7 +95,6 @@ if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
 	export BROWSER="/mnt/c/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe"
 fi
 
-
 _source_if_exists() {
 	if [ -f "$1" ]; then
 		source "$1"
@@ -110,7 +109,6 @@ _eval_if_exists() {
 
 _eval_if_exists zoxide init zsh --cmd cd
 _eval_if_exists oh-my-posh init zsh --config ~/plugins/oh-my-posh/theme.omp.json
-
 
 source ~/plugins/fzf-tab/fzf-tab.plugin.zsh
 source ~/plugins/q/q.plugin.zsh
@@ -137,3 +135,5 @@ bindkey '^[[Z' autosuggest-accept
 
 # Tab completer. First, expand aliases, then complete commands, then ignore
 zstyle ':completion:*' completer _expand_alias _complete _ignored
+
+export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [y/n/a/e] "
