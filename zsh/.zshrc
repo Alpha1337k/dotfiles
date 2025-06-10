@@ -127,9 +127,9 @@ eval "$(atuin init zsh)"
 ZSH_AUTOSUGGEST_STRATEGY=(atuin)
 
 _source_if_exists $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-_source_if_exists $(brew --prefix)/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
-fast-theme -q ~/.config/zsh-fast-syntax-highlighting/custom.ini
+# _source_if_exists $(brew --prefix)/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+# fast-theme -q ~/.config/zsh-fast-syntax-highlighting/custom.ini
 
 bindkey '^[[Z' autosuggest-accept
 
