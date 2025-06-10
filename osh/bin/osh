@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DOTFILES_DIR="$HOME/dotfiles"
+
+if [ -d "~/.osh" ]; then
+	. ~/.osh/package_manager.sh
+	. ~/.osh/stow.sh
+	. ~/.osh/install.sh
+	. ~/.osh/update.sh
+else
+	. $DOTFILES_DIR/osh/.osh/package_manager.sh
+	. $DOTFILES_DIR/osh/.osh/stow.sh
+	. $DOTFILES_DIR/osh/.osh/install.sh
+	. $DOTFILES_DIR/osh/.osh/update.sh
+fi
+
+
+show_help() {
+	cat <<EOF
+osh - Oh my shell dotfiles manager
+
+Usage: osh <command>
+
+Commands:
+    add           Add a package to dotfiles
+    update        Update dotfiles (git pull, packages, stow)
+    install       Install packages from Brew and uv
+    stow          Stow dotfiles configurations
+    check-updates Check if updates are available (silent)
+    help          Show this help message
+
+Examples:
+    osh add brew htop          # Add htop via brew
+    osh update                 # Pull latest changes and update system
+    osh help                   # Show help
+EOF
+}
+
+check_updates() {
+	cd "$DOTFILES_DIR"
+
+	# Fetch latest changes without merging
+	git fetch origin main >/dev/null 2>&1
+
+	# Check if local is behind remote
+	LOCAL=$(git rev-parse HEAD)
+	REMOTE=$(git rev-parse origin/main)
+
+	if [ "$LOCAL" != "$REMOTE" ]; then
+		exit 0 # Updates available
+	else
+		exit 1 # No updates
+	fi
+}
+
+case "${1:-}" in
+add)
+	add $@
+	;;
+update)
+	update_dotfiles
+	;;
+install)
+	install_packages
+	;;
+stow)
+	stow_folders
+	;;
+check-updates)
+	check_updates
+	;;
+help | --help | -h)
+	show_help
+	;;
+"")
+	show_help
+	exit 1
+	;;
+*)
+	echo "Error: Unknown command '$1'"
+	echo ""
+	show_help
+	exit 1
+	;;
+esac
