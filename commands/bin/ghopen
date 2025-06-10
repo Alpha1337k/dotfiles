@@ -7,8 +7,7 @@ cd $DIR
 
 URL=$(/usr/bin/git remote get-url origin)
 
-if [[ "$URL" == "https://"* ]]
-then
+if [[ "$URL" == "https://"* ]]; then
 	sensible-browser ${URL//.git/}
 else
 	PARTS=($(echo ${URL} | sed 's/[@:\.]/ /g'))

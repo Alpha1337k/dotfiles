@@ -25,8 +25,7 @@ uv_tool_installs=(
 	openrouter-cli
 )
 
-if ! command -v brew 2>&1 > /dev/null
-then
+if ! command -v brew 2>&1 >/dev/null; then
 	echo "# Installing brew"
 	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
 	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

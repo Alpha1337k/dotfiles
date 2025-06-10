@@ -6,44 +6,40 @@ source ~/.env
 MAX_MESSAGE_LEN=1024
 
 show_help() {
-  echo "Usage: [command] | $(basename "$0")"
-  echo "   or: $(basename "$0") \"Your message\""
-  echo "Sends a message to Telegram."
+	echo "Usage: [command] | $(basename "$0")"
+	echo "   or: $(basename "$0") \"Your message\""
+	echo "Sends a message to Telegram."
 }
 
 # Show help if requested
-if [[ -n "$1" && ( "$1" == "-h" || "$1" == "--help" ) ]]; then
-  show_help
-  exit 0
+if [[ -n "$1" && ("$1" == "-h" || "$1" == "--help") ]]; then
+	show_help
+	exit 0
 fi
 
 MESSAGE=${@:-$(cat -)}
 
-if [ -z ${TELEGRAM_BOT_API_KEY+x} ] 
-then
+if [ -z ${TELEGRAM_BOT_API_KEY+x} ]; then
 	>&2 echo "message: error: no TELEGRAM_BOT_API_KEY provided"
 	exit 1
 fi
 
-if [ -z ${TELEGRAM_CHAT_ID+x} ] 
-then
+if [ -z ${TELEGRAM_CHAT_ID+x} ]; then
 	>&2 echo "message: error: no TELEGRAM_CHAT_ID provided"
 	exit 1
 fi
 
-if [ ${#MESSAGE} -ge $MAX_MESSAGE_LEN ]
-then
+if [ ${#MESSAGE} -ge $MAX_MESSAGE_LEN ]; then
 	>&2 echo "message: warn: message will be reduced to 1024 characters"
 
 	MESSAGE="${MESSAGE:0:512}
 
-... $((${#MESSAGE}-1024)) characters omitted ...
+... $((${#MESSAGE} - 1024)) characters omitted ...
 
 ${MESSAGE:${#MESSAGE}-512:512}"
 fi
 
-if [ ${#MESSAGE} -eq 0 ]
-then
+if [ ${#MESSAGE} -eq 0 ]; then
 	>&2 echo "message: error: no message provided"
 
 	exit 1
@@ -62,11 +58,9 @@ set -e
 
 ## -- UPLOAD
 
-if [ $MESSAGE_UPLOAD_STATUS -ne 0 ]
-then
+if [ $MESSAGE_UPLOAD_STATUS -ne 0 ]; then
 	echo "message: error: message upload failed: $MESSAGE_UPLOAD"
 	exit 1
 fi
-
 
 # 7522366378:AAFmexBGDXvv6A2JVQn99Z8Zo2ZccS1Zzp4

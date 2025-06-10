@@ -1,20 +1,20 @@
 # First, create a real 'q' function as a fallback
 q() {
-    echo "Error: 'q' should be used with the AI command replacement system."
-    echo "Usage: q \"your request\" or command | q \"your request\""
-    return 1
+	echo "Error: 'q' should be used with the AI command replacement system."
+	echo "Usage: q \"your request\" or command | q \"your request\""
+	return 1
 }
 
 # Enhanced ZLE widget that handles more complex cases
 ai_replace_command() {
-    # More comprehensive regex to catch q anywhere in the command
-    if [[ $BUFFER =~ "(^|[[:space:]|&;])q[[:space:]]+(['\"])[^'\"]*\2" ]]; then
-		echo $query > ~/dotfiles/debug.log
+	# More comprehensive regex to catch q anywhere in the command
+	if [[ $BUFFER =~ "(^|[[:space:]|&;])q[[:space:]]+(['\"])[^'\"]*\2" ]]; then
+		echo $query >~/dotfiles/debug.log
 
-        # Show processing feedback
-        echo "\n🤖"
-        
-        local system_prompt="You are a shell command generator. Your job is to convert natural language requests into executable shell commands.
+		# Show processing feedback
+		echo "\n🤖"
+
+		local system_prompt="You are a shell command generator. Your job is to convert natural language requests into executable shell commands.
 
 RULES:
 1. Output ONLY the shell command, nothing else
@@ -41,21 +41,21 @@ Output: docker run -d -p 80:80 nginx && echo \"done\"
 
 Now process this input:"
 
-        local ai_cmd=$(echo $BUFFER | openrouter-cli run mistralai/devstral-small --system="$system_prompt" --no-thinking-stdout)
-        
-        # Add original command to history for reference
-        print -s "$original_buffer"
-        
-        # Replace the buffer with the AI-generated command
-        BUFFER="$ai_cmd"
-        CURSOR=$#BUFFER
-        
-        # Redraw the line with new prompt
-        zle reset-prompt
-    else
-        # If no q command, execute normally
-        zle accept-line
-    fi
+		local ai_cmd=$(echo $BUFFER | openrouter-cli run mistralai/devstral-small --system="$system_prompt" --no-thinking-stdout)
+
+		# Add original command to history for reference
+		print -s "$original_buffer"
+
+		# Replace the buffer with the AI-generated command
+		BUFFER="$ai_cmd"
+		CURSOR=$#BUFFER
+
+		# Redraw the line with new prompt
+		zle reset-prompt
+	else
+		# If no q command, execute normally
+		zle accept-line
+	fi
 }
 
 # Create ZLE widget and bind to Enter
