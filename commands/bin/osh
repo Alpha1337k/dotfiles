@@ -78,7 +78,7 @@ install_packages() {
 }
 
 stow_folders() {
-	apps=(
+	local apps=(
 		git
 		zsh
 		plugins
@@ -99,9 +99,9 @@ stow_folders() {
 
 			set -e
 
-			echo "⚠️  Conflicts detected for ${app}:"
+			echo "❌  Conflicts detected for ${app}:"
 			echo "$conflicts"
-			echo "⚠️  Resolve these conflicts before proceeding."
+			echo "❌  Resolve these conflicts before proceeding."
 
 			exit 1
 		else
@@ -152,6 +152,18 @@ Enter choice (1-3): "
 	esac
 }
 
+add_to_uvfile() {
+	local package_name="$1"
+	local uvfile="$DOTFILES_DIR/Uvfile"
+
+	if ! grep -q "^$package_name\$" "$uvfile"; then
+		echo "$package_name" >> "$uvfile"
+		echo "✅ Added $package_name to Uvfile"
+	else
+		echo "⚠️ $package_name already exists in Uvfile"
+	fi
+}
+
 add_package() {
 	local repo_type="$1"
 	local package_name="$2"
@@ -171,6 +183,7 @@ add_package() {
 	python | uv)
 		echo "📦 Adding python tool: $package_name"
 		uv tool install "$package_name"
+		add_to_uvfile "$package_name"
 		;;
 	*)
 		echo "❌ Error: Unknown repository type '$repo_type'"
