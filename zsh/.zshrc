@@ -78,6 +78,10 @@ if [ -d "$FNM_PATH" ]; then
 	eval "$(fnm env)"
 fi
 
+# Add laravel bins
+export PATH="/home/alpha/.config/herd-lite/bin:$PATH"
+export PHP_INI_SCAN_DIR="/home/alpha/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+
 # Add deno completions to search path
 if [[ ":$FPATH:" != *":/home/$(whoami)/.zsh/completions:"* ]]; then export FPATH="/home/$(whoami)/.zsh/completions:$FPATH"; fi
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
