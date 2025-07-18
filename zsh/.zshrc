@@ -139,5 +139,11 @@ bindkey '^[[Z' autosuggest-accept
 
 # Tab completer. First, expand aliases, then complete commands, then ignore
 zstyle ':completion:*' completer _expand_alias _complete _ignored
+zstyle ':completion:*:*:*:*:*' ignored-patterns '*.so' '*.so.*' '*.dylib' '*.a' '_*' '-*'
+
+zstyle ':completion:*' list-dirs-first true
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' sort true
+zstyle ':completion:*' group-order aliases functions commands builtins
 
 export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [y/n/a/e] "
