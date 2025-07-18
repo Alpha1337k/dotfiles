@@ -7,6 +7,7 @@ add_to_uvfile() {
 
 	if ! grep -q "^$package_name\$" "$uvfile"; then
 		echo "$package_name" >> "$uvfile"
+		echo "" >> "$uvfile"
 		echo "✅ Added $package_name to Uvfile"
 	else
 		echo "⚠️ $package_name already exists in Uvfile"
