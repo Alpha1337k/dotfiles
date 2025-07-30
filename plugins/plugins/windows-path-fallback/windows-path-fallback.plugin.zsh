@@ -3,7 +3,7 @@
 
 # Function to separate Windows paths from main PATH
 setup_windows_path_fallback() {
-	WINDOWS_PATH=""
+	export WINDOWS_PATH=""
 	CLEAN_PATH=""
 
 	IFS=':' read -rA PATHS <<<"$PATH"
@@ -11,9 +11,9 @@ setup_windows_path_fallback() {
 	for path_entry in $PATHS; do
 		if [[ "$path_entry" == /mnt/c/* ]]; then
 			if [[ -n "$WINDOWS_PATH" ]]; then
-				WINDOWS_PATH="$WINDOWS_PATH:$path_entry"
+				export WINDOWS_PATH="$WINDOWS_PATH:$path_entry"
 			else
-				WINDOWS_PATH="$path_entry"
+				export WINDOWS_PATH="$path_entry"
 			fi
 		else
 			if [[ -n "$CLEAN_PATH" ]]; then
@@ -34,7 +34,7 @@ command_not_found_handler() {
 	if [[ -n "$WINDOWS_PATH" ]]; then
 		local old_path="$PATH"
 		export PATH="$PATH:$WINDOWS_PATH"
-		if command -v "$cmd" >/dev/null 2>&1; then
+		if command -v "$cmd" >/dev/null; then
 			"$@"
 			local exit_code=$?
 			export PATH="$old_path"
