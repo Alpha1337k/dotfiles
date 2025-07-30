@@ -12,6 +12,7 @@ alias top="htop"
 alias curl="curlie"
 alias test="nocorrect test"
 alias du="dust"
+alias loc="scc"
 
 # Docker aliases
 alias d="docker"
