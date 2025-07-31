@@ -17,14 +17,17 @@ install_packages() {
 
 	set +e
 
-	local uv_result=$(uv tool install -q ${uv_tools[*]// /|})
-	local uv_exit_code=$?
+	for tool in $uv_tools;
+	do
+		local uv_result=$(uv tool install -q $tool)
+		local uv_exit_code=$?
+
+		if [ $uv_exit_code -ne 0 ]; then
+			echo "❌ Error installing uv tool $tool: $uv_result"
+		fi
+	done
 
 	set -e
-
-	if [ $uv_exit_code -ne 0 ]; then
-		echo "❌ Error installing uv tools: $uv_result"
-	fi
 
 	if [ $brew_exit_code -ne 0 ]; then
 		echo "❌ Error installing brew packages: $brew_result"
