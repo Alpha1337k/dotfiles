@@ -14,6 +14,7 @@ alias test="nocorrect test"
 alias du="dust"
 alias loc="scc"
 alias neofetch="fastfetch"
+alias dns="doggo"
 
 # Docker aliases
 alias d="docker"
