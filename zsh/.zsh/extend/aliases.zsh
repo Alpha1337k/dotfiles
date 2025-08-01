@@ -13,6 +13,7 @@ alias curl="curlie"
 alias test="nocorrect test"
 alias du="dust"
 alias loc="scc"
+alias neofetch="fastfetch"
 
 # Docker aliases
 alias d="docker"
