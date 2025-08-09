@@ -5,20 +5,19 @@ install_packages() {
 	cd "$DOTFILES_DIR"
 
 	git submodule update --init --recursive
-	
+
 	set +e
-	
+
 	local brew_result=$(brew bundle)
 	local brew_exit_code=$?
 
 	set -e
 
-	local uv_tools=( $(cat Uvfile) )
+	local uv_tools=($(cat Uvfile))
 
 	set +e
 
-	for tool in $uv_tools;
-	do
+	for tool in $uv_tools; do
 		local uv_result=$(uv tool install -q $tool)
 		local uv_exit_code=$?
 

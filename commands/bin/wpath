@@ -13,24 +13,24 @@ if [[ -z ${1+x} || ("$1" == "-h" || "$1" == "--help") ]]; then
 fi
 
 wpath() {
-    local linux_path=$(realpath $1)
-    
-    . /etc/os-release
-    
-    if [[ "$linux_path" == "/mnt/"* ]] && [[ "$linux_path" != "/mnt/wsl"* ]]; then
-        PARTS=(${linux_path//\// })
-        PARTS[1]=$(echo "${PARTS[1]}:" | tr '[:lower:]' '[:upper:]')
-        unset PARTS[0]
-        
-        JOINED=$(
-            IFS=\\
-            echo "${PARTS[*]}"
-        )
-        
-        echo $JOINED
-    else
-        echo "\\\\wsl.localhost\\$NAME-$VERSION_ID${linux_path//\//\\}"
-    fi
+	local linux_path=$(realpath $1)
+
+	. /etc/os-release
+
+	if [[ "$linux_path" == "/mnt/"* ]] && [[ "$linux_path" != "/mnt/wsl"* ]]; then
+		PARTS=(${linux_path//\// })
+		PARTS[1]=$(echo "${PARTS[1]}:" | tr '[:lower:]' '[:upper:]')
+		unset PARTS[0]
+
+		JOINED=$(
+			IFS=\\
+			echo "${PARTS[*]}"
+		)
+
+		echo $JOINED
+	else
+		echo "\\\\wsl.localhost\\$NAME-$VERSION_ID${linux_path//\//\\}"
+	fi
 }
 
 wpath "$@"

@@ -15,7 +15,7 @@ stow_folders() {
 
 	for app in ${apps[@]}; do
 		echo "🔗 Stowing ${app}..."
-		
+
 		# First, try stow with simulation to detect conflicts
 		if ! stow -n -v -R -t "$HOME" "${app}" 2>/dev/null; then
 			set +e

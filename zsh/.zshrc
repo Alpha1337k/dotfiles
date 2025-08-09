@@ -114,7 +114,7 @@ _eval_if_exists() {
 _eval_if_exists zoxide init zsh --cmd cd
 _eval_if_exists oh-my-posh init zsh --config ~/plugins/oh-my-posh/theme.omp.json
 
-source ~/plugins/fzf-tab/fzf-tab.plugin.zsh
+# source ~/plugins/fzf-tab/fzf-tab.plugin.zsh
 source ~/plugins/q/q.plugin.zsh
 source ~/plugins/dotfiles-update-check/dotfiles-update-check.plugin.zsh
 source ~/plugins/windows-path-fallback/windows-path-fallback.plugin.zsh
@@ -143,7 +143,7 @@ zstyle ':completion:*:*:*:*:*' ignored-patterns '*.so' '*.so.*' '*.dylib' '*.a' 
 
 zstyle ':completion:*' list-dirs-first true
 zstyle ':completion:*' group-name ''
-zstyle ':completion:*' sort true
+zstyle ':completion:*' sort false
 zstyle ':completion:*' group-order aliases functions commands builtins
 
 export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [y/n/a/e] "
