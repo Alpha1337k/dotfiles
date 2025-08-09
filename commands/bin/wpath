@@ -1,8 +1,19 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+show_help() {
+	echo "Usage: $(basename "$0") [PATH]"
+	echo "Converts a path to the windows format."
+}
+
+# Show help if requested
+if [[ -z ${1+x} || ("$1" == "-h" || "$1" == "--help") ]]; then
+	show_help
+	exit 0
+fi
+
 wpath() {
-    local linux_path="$1"
+    local linux_path=$(realpath $0)
     
     . /etc/os-release
     
