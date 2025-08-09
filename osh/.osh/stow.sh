@@ -20,7 +20,7 @@ stow_folders() {
 		if ! stow -n -v -R -t "$HOME" "${app}" 2>/dev/null; then
 			set +e
 
-			conflicts=$(stow -n -v -R -t "$HOME" "${app}" 2>&1 | grep -E "existing target|would conflict")
+			conflicts=$(stow -n -v -R -t "$HOME" "${app}" 2>&1)
 
 			set -e
 
