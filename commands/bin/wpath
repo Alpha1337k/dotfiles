@@ -13,7 +13,7 @@ if [[ -z ${1+x} || ("$1" == "-h" || "$1" == "--help") ]]; then
 fi
 
 wpath() {
-    local linux_path=$(realpath $0)
+    local linux_path=$(realpath $1)
     
     . /etc/os-release
     
