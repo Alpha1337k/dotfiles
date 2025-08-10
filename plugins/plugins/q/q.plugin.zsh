@@ -41,7 +41,7 @@ Output: docker run -d -p 80:80 nginx && echo \"done\"
 
 Now process this input:"
 
-		local ai_cmd=$(echo $BUFFER | openrouter-cli run mistralai/devstral-small --system="$system_prompt" --no-thinking-stdout)
+		local ai_cmd=$(echo $BUFFER | openrouter-cli run mistralai/codestral-2508 --system="$system_prompt" --no-thinking-stdout)
 
 		# Add original command to history for reference
 		print -s "$original_buffer"
