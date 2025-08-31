@@ -4,7 +4,6 @@ set -euo pipefail
 stow_folders() {
 	local apps=(
 		osh
-		git
 		zsh
 		plugins
 		commands

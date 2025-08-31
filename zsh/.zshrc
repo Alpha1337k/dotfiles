@@ -93,7 +93,7 @@ zstyle ':omz:lib:directories' aliases no
 
 source $ZSH/oh-my-zsh.sh
 
-export PATH=$PATH:/usr/local/go/bin:/home/$(whoami)/.local/bin:/home/$(whoami)/bin
+export PATH=$PATH:/usr/local/go/bin:/home/$(whoami)/go/bin:/home/$(whoami)/.local/bin:/home/$(whoami)/bin
 
 if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
 	export BROWSER="/mnt/c/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe"
