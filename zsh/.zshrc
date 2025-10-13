@@ -88,7 +88,6 @@ source ~/plugins/windows-path-fallback/windows-path-fallback.plugin.zsh
 source ~/.config/zshrc/fzf-tab.zsh
 source ~/.config/zshrc/eza.zsh
 source ~/.zsh/extend/aliases.zsh
-source ~/.zsh/extend/functions.zsh
 
 _source_if_exists ~/.env
 _source_if_exists "/home/$(whoami)/.deno/env"

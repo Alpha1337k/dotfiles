@@ -1,0 +1,3 @@
+#!/usr/bin/zsh
+set -euo pipefail
+rg --json -C 2 "$@" | delta
