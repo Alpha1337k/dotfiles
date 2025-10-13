@@ -10,6 +10,7 @@ stow_folders() {
 		env
 		config
 		completions
+		fish
 	)
 
 	for app in ${apps[@]}; do
