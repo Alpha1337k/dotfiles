@@ -6,4 +6,10 @@ repos:
         entry: ./dev/format.sh --soft
         language: script
         files: .*
-        stages: [pre-commit]
+        stages: [pre-commit, pre-merge-commit, pre-push, manual]
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.3.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        args: []
