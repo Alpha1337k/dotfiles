@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: format
+        name: Shell format
+        entry: ./dev/format.sh --soft
+        language: script
+        files: .*
+        stages: [pre-commit]
