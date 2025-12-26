@@ -2,18 +2,18 @@
 set -euo pipefail
 
 update_dotfiles() {
-	echo "🔄 Updating dotfiles..."
+    echo "🔄 Updating dotfiles..."
 
-	cd "$DOTFILES_DIR"
+    cd "$DOTFILES_DIR"
 
-	echo "📥 Pulling latest changes..."
-	git pull
+    echo "📥 Pulling latest changes..."
+    git pull
 
-	echo "🔗 Applying stow configurations..."
-	stow_folders
+    echo "🔗 Applying stow configurations..."
+    stow_folders
 
-	echo "📦 Installing/updating packages..."
-	install_packages
+    echo "📦 Installing/updating packages..."
+    install_packages
 
-	echo "✅ Dotfiles updated successfully!"
+    echo "✅ Dotfiles updated successfully!"
 }

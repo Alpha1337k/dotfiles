@@ -2,35 +2,35 @@
 set -euo pipefail
 
 show_help() {
-	echo "Usage: $(basename "$0") [PATH]"
-	echo "Converts a path to the windows format."
+    echo "Usage: $(basename "$0") [PATH]"
+    echo "Converts a path to the windows format."
 }
 
 # Show help if requested
 if [[ -z ${1+x} || ("$1" == "-h" || "$1" == "--help") ]]; then
-	show_help
-	exit 0
+    show_help
+    exit 0
 fi
 
 wpath() {
-	local linux_path=$(realpath $1)
+    local linux_path=$(realpath $1)
 
-	. /etc/os-release
+    . /etc/os-release
 
-	if [[ "$linux_path" == "/mnt/"* ]] && [[ "$linux_path" != "/mnt/wsl"* ]]; then
-		PARTS=(${linux_path//\// })
-		PARTS[1]=$(echo "${PARTS[1]}:" | tr '[:lower:]' '[:upper:]')
-		unset PARTS[0]
+    if [[ "$linux_path" == "/mnt/"* ]] && [[ "$linux_path" != "/mnt/wsl"* ]]; then
+        PARTS=(${linux_path//\// })
+        PARTS[1]=$(echo "${PARTS[1]}:" | tr '[:lower:]' '[:upper:]')
+        unset PARTS[0]
 
-		JOINED=$(
-			IFS=\\
-			echo "${PARTS[*]}"
-		)
+        JOINED=$(
+            IFS=\\
+            echo "${PARTS[*]}"
+        )
 
-		echo $JOINED
-	else
-		echo "\\\\wsl.localhost\\$NAME-$VERSION_ID${linux_path//\//\\}"
-	fi
+        echo $JOINED
+    else
+        echo "\\\\wsl.localhost\\$NAME-$VERSION_ID${linux_path//\//\\}"
+    fi
 }
 
 wpath "$@"

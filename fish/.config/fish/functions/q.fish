@@ -7,10 +7,10 @@ end
 function q
     set query $argv
 
-    set model "mistralai/codestral-2508"
+    set model mistralai/codestral-2508
 
     # Show help if requested
-    if test (count $argv) -eq 0; or test "$argv[1]" = "-h"; or test "$argv[1]" = "--help"
+    if test (count $argv) -eq 0; or test "$argv[1]" = -h; or test "$argv[1]" = --help
         show_help
         return 1
     end
