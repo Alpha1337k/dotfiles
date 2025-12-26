@@ -3,14 +3,12 @@ set -euo pipefail
 
 stow_folders() {
 	local apps=(
-		osh
-		zsh
-		plugins
 		commands
-		env
-		config
 		completions
+		config
+		env
 		fish
+		osh
 	)
 
 	for app in ${apps[@]}; do
