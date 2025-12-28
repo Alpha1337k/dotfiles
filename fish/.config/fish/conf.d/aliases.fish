@@ -15,6 +15,7 @@ alias neofetch="fastfetch"
 alias dns="doggo"
 alias ls="eza"
 alias l="ls"
+alias calc="qalc"
 
 # Docker aliases
 alias d="docker"
