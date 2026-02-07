@@ -36,6 +36,8 @@ if _add_to_path_if_exists "/home/"(whoami)"/.local/share/fnm"
     eval (fnm env)
 end
 
+source "$HOME/.cargo/env.fish"
+
 # Add laravel bins
 if _add_to_path_if_exists "/home/alpha/.config/herd-lite/bin"
     export PHP_INI_SCAN_DIR="/home/alpha/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"

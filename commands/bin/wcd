@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+show_help() {
+    echo "Usage: $(basename "$0") [PATH]"
+    echo "Convert windows path to linux path and cd into it if sourced."
+}
+
+# Show help if requested
+if [[ -z ${1+x} || ("$1" == "-h" || "$1" == "--help") ]]; then
+    show_help
+    exit 0
+fi
+
+wcd() {
+    local windows_path="$1"
+
+    if [[ "$windows_path" == "\\\\"* ]]; then
+        # Convert from WSL UNC path to Linux path
+        local linux_path="${windows_path//\\\\/\/}"
+        linux_path="${linux_path//\\//\/}"
+        linux_path="/mnt/${linux_path:16}"
+        linux_path="${linux_path//:\/\//\/}"
+    else
+        # Convert from Windows drive letter path to Linux path
+        local drive_letter="${windows_path:0:1}"
+        local rest_of_path="${windows_path:2}"
+        local linux_path="/mnt/${drive_letter,,}/${rest_of_path//\\//\/}"
+    fi
+
+    echo $windows_path
+    echo "-> cd" $linux_path
+
+    if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+        cd $linux_path
+    else
+        echo cd $linux_path
+    fi
+}
+
+wcd "$@"

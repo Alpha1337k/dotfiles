@@ -35,3 +35,5 @@ alias gp="git push"
 alias git-restart="git reset HEAD --hard"
 
 alias ls="eza --group-directories-first --icons=never --git --smart-group"
+
+alias wcd="bass source wcd"

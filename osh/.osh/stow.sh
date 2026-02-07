@@ -4,7 +4,6 @@ set -euo pipefail
 stow_folders() {
     local apps=(
         commands
-        completions
         config
         env
         fish
