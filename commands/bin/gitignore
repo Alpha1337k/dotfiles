@@ -1,0 +1,45 @@
+#!/bin/bash
+set -euo pipefail
+
+show_help() {
+    echo "Usage: $(basename "$0") [OPTIONS] [PATTERN]"
+    echo "Generate .gitignore file based on the provided pattern."
+    echo
+    echo "Options:"
+    echo "  -h, --help    Show this help message and exit"
+}
+
+# Show help if requested
+if [[ -z ${1+x} || ("$1" == "-h" || "$1" == "--help") ]]; then
+    show_help
+    exit 0
+fi
+
+# Check if .gitignore already exists
+if [ -f .gitignore ]; then
+    echo ".gitignore already exists. Aborting."
+    exit 1
+fi
+
+if [ $# -eq 0 ]; then
+    echo "No pattern provided. Aborting."
+    show_help
+    exit 1
+fi
+
+LANG=$1
+
+# Download the .gitignore template from
+set +e
+
+ERROR=$(curl --fail --show-error -so .gitignore https://raw.githubusercontent.com/github/gitignore/refs/heads/main/$LANG.gitignore 2>&1)
+EXIT_CODE=$?
+
+set -e
+
+if [ $EXIT_CODE -ne 0 ]; then
+    echo "Failed to download .gitignore for pattern '$LANG'."
+    echo "Error: $ERROR"
+    rm -f .gitignore
+    exit 1
+fi
