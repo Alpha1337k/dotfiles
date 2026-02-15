@@ -1,0 +1,27 @@
+#!/usr/bin/python3
+
+
+import subprocess
+import json
+import os
+
+call = subprocess.Popen("rbw get API_KEYS --raw", stdout=subprocess.PIPE, shell=True)
+
+call.wait()
+
+assert call.stdout != None
+
+parsed_input = json.loads(call.stdout.read().decode("utf-8").strip())
+
+output = []
+
+for row in parsed_input['fields']:
+    key = row["name"]
+    value = row["value"]
+    output.append(f"{key}=\"{value}\"")
+
+output.sort()
+
+print("\n".join(output))
+env_file = os.path.expanduser("~/.env")
+current_output = "\n".join(output)

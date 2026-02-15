@@ -14,7 +14,7 @@ fi
 
 sh_files=(
     $(find . -type f \( -name "*.sh" \))
-    $(find ./commands/bin -type f)
+    $(find ./commands/bin -type f -exec grep -l '^#!/.*bash' {} \;)
 )
 
 fish_files=(
