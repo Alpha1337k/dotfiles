@@ -1,21 +1,18 @@
-#!/usr/bin/bash
-set -euo pipefail
+#!/usr/bin/python3
+import os
 
-CDIR=$(pwd)
+current_dir = os.getcwd()
 
-. /etc/os-release
+if current_dir.startswith("/mnt/") and not current_dir.startswith("/mnt/wsl"):
+    parts = current_dir.split("/")[2:]
 
-if [[ "$CDIR" == "/mnt/"* ]] && [[ "$CDIR" != "/mnt/wsl"* ]]; then
-    PARTS=(${CDIR//\// })
-    PARTS[1]=$(echo "${PARTS[1]}:" | tr '[:lower:]' '[:upper:]')
-    unset PARTS[0]
+    start = parts[0].upper() + ":"
+    rest = '\\'.join(parts[1:])
 
-    JOINED=$(
-        IFS=\\
-        echo "${PARTS[*]}"
-    )
+    print(f"{start}\\{rest}")
+else:
+    start = "\\\\wsl.localhost\\"
+    os_name = f"{os.getenv('WSL_DISTRO_NAME')}"
+    current_dir = current_dir.replace('/', '\\')
 
-    echo $JOINED
-else
-    echo "\\\\wsl.localhost\\$NAME-$VERSION_ID${CDIR//\//\\}"
-fi
+    print(f"{start}{os_name}{current_dir}")
